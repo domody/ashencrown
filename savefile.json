@@ -1,0 +1,22 @@
+{
+  "1": {
+    "player": {
+      "position": {
+        "x": 315,
+        "y": 3059
+      },
+      "health": 100
+    },
+    "world": {
+      "current_map": "ashwood_flats/ashwood_flats.tmx"
+    },
+    "cutscene": null
+  },
+  "2": null,
+  "3": null,
+  "DEFAULT": {
+    "player": { "position": { "x": 640, "y": 704 }, "health": 100 },
+    "world": { "current_map": "enchanted_shrine/main.tmx" },
+    "cutscene": "game_start"
+  }
+}

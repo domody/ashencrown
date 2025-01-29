@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="7" height="6" tilewidth="32" tileheight="32" infinite="0" nextlayerid="5" nextobjectid="13">
+ <properties>
+  <property name="limit_edges" type="bool" value="false"/>
+ </properties>
+ <tileset firstgid="1" source="../../tiled/Walls.tsx"/>
+ <tileset firstgid="257" source="../../tiled/Structures.tsx"/>
+ <tileset firstgid="294" source="../../tiled/Floor.tsx"/>
+ <layer id="4" name="Ground" width="7" height="6">
+  <data encoding="csv">
+0,299,297,297,297,299,0,
+0,298,297,297,299,297,0,
+0,297,297,297,299,298,0,
+0,298,297,297,297,299,0,
+0,297,297,297,297,297,0,
+0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer id="1" name="Walls" width="7" height="6">
+  <data encoding="csv">
+21,0,0,99,0,0,25,
+27,0,0,115,0,0,26,
+43,0,0,0,0,0,42,
+27,0,0,0,0,0,58,
+43,0,0,0,0,0,42,
+69,70,29,30,31,72,73
+</data>
+ </layer>
+ <objectgroup id="3" name="Struct">
+  <object id="1" name="archway" type="DynamicStructure" gid="265" x="32" y="64" width="64" height="64"/>
+  <object id="3" name="archway" type="DynamicStructure" gid="265" x="128" y="64" width="64" height="64"/>
+  <object id="6" name="spawn" type="Spawn" x="111" y="144"/>
+  <object id="7" type="StaticStructure" gid="280" x="106" y="49" width="5" height="26"/>
+  <object id="8" type="StaticStructure" gid="279" x="113" y="42" width="5" height="12"/>
+  <object id="12" name="entrance" type="StaticStructure" x="128" y="0" width="65" height="54">
+   <properties>
+    <property name="exit" value="ashwood_flats/ashwood_flats"/>
+    <property name="exit_index" value="1"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>

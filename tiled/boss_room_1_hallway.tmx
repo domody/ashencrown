@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="10" height="30" tilewidth="32" tileheight="32" infinite="0" nextlayerid="10" nextobjectid="54">
+ <tileset firstgid="1" source="Walls.tsx"/>
+ <tileset firstgid="257" source="TX Tileset Stone Ground.tsx"/>
+ <tileset firstgid="321" source="Structures.tsx"/>
+ <tileset firstgid="358" source="Floor.tsx"/>
+ <layer id="1" name="Ground" width="10" height="30">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+0,0,359,359,359,359,359,359,0,0,
+0,0,360,360,359,360,359,359,0,0,
+0,0,359,359,359,359,359,359,0,0,
+0,0,359,359,359,359,359,359,0,0,
+0,0,359,359,359,359,359,359,0,0,
+0,0,359,359,359,360,359,359,0,0,
+0,0,359,359,360,359,359,360,0,0,
+0,0,360,359,359,360,359,359,0,0,
+0,0,359,359,359,359,359,359,0,0,
+0,0,360,359,359,359,360,359,0,0,
+0,0,359,359,359,359,359,359,0,0,
+0,0,359,359,359,360,359,359,0,0,
+0,0,359,359,359,359,359,359,0,0,
+0,0,359,359,359,359,359,359,0,0,
+0,0,360,360,360,360,360,359,0,0,
+0,0,360,359,360,359,359,359,0,0,
+0,0,359,359,359,359,359,359,0,0,
+0,0,359,359,359,360,360,359,0,0,
+0,0,360,359,359,359,359,360,0,0,
+0,0,360,359,359,359,359,360,0,0,
+0,0,359,359,359,360,359,360,0,0,
+0,0,359,359,360,359,360,359,0,0,
+0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer id="2" name="Walls" width="10" height="30">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+0,21,22,23,0,0,23,24,25,0,
+0,27,38,39,0,0,39,40,26,0,
+0,43,0,0,0,0,0,0,42,0,
+0,59,0,0,0,0,0,0,58,0,
+0,27,0,0,0,0,0,0,26,0,
+0,43,0,0,0,0,0,0,42,0,
+0,59,0,0,0,0,0,0,58,0,
+0,27,0,0,0,0,0,0,26,0,
+0,43,0,0,0,0,0,0,42,0,
+0,59,0,0,0,0,0,0,58,0,
+0,27,0,0,0,0,0,0,26,0,
+0,43,0,0,0,0,0,0,42,0,
+0,59,0,0,0,0,0,0,58,0,
+0,53,0,0,0,0,0,0,26,0,
+0,27,0,0,0,0,0,0,42,0,
+0,43,0,0,0,0,0,0,58,0,
+0,59,0,0,0,0,0,0,41,0,
+0,53,0,0,0,0,0,0,57,0,
+0,37,0,0,0,0,0,0,26,0,
+0,27,0,0,0,0,0,0,42,0,
+0,43,0,0,0,0,0,0,58,0,
+0,59,0,0,0,0,0,0,57,0,
+0,69,72,70,71,72,70,71,73,0
+</data>
+ </layer>
+ <objectgroup id="5" name="DynamicStructures" opacity="0.9">
+  <object id="9" name="pillar_tall" type="DynamicStructure" gid="338" x="96" y="832" width="32" height="77"/>
+  <object id="10" name="pillar_tall" type="DynamicStructure" gid="338" x="192" y="832" width="32" height="77"/>
+  <object id="13" name="pillar_tall" type="DynamicStructure" gid="338" x="96" y="640" width="32" height="77"/>
+  <object id="14" name="pillar_tall" type="DynamicStructure" gid="338" x="96" y="448" width="32" height="77"/>
+  <object id="15" name="pillar_tall" type="DynamicStructure" gid="338" x="192" y="640" width="32" height="77"/>
+  <object id="16" name="pillar_tall" type="DynamicStructure" gid="338" x="192" y="448" width="32" height="77"/>
+ </objectgroup>
+ <objectgroup id="7" name="Enemies">
+  <object id="22" type="Enemy" x="224" y="512">
+   <properties>
+    <property name="enemy" value="goblin"/>
+   </properties>
+  </object>
+  <object id="23" type="Enemy" x="96" y="704">
+   <properties>
+    <property name="enemy" value="goblin"/>
+   </properties>
+  </object>
+  <object id="52" type="Enemy" x="160" y="608">
+   <properties>
+    <property name="enemy" value="goblin"/>
+   </properties>
+  </object>
+  <object id="28" type="Enemy" x="160" y="416">
+   <properties>
+    <property name="enemy" value="goblin"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="6" name="StaticStructures">
+  <object id="12" type="DynamicStructure" gid="329" x="128" y="288" width="64" height="64"/>
+ </objectgroup>
+ <objectgroup id="9" name="Collisions">
+  <object id="37" type="Collision" x="0" y="224" width="64" height="736"/>
+  <object id="38" type="Collision" x="64" y="928" width="192" height="32"/>
+  <object id="40" type="Collision" x="256" y="224" width="64" height="736"/>
+  <object id="42" type="Collision" x="64" y="224" width="80" height="64"/>
+  <object id="53" type="Collision" x="176" y="224" width="80" height="64"/>
+  <object id="43" type="Collision" x="96" y="423" width="32" height="25"/>
+  <object id="44" type="Collision" x="192" y="423" width="32" height="25"/>
+  <object id="45" type="Collision" x="96" y="615" width="32" height="25"/>
+  <object id="46" type="Collision" x="192" y="615" width="32" height="25"/>
+  <object id="47" type="Collision" x="96" y="807" width="32" height="25"/>
+  <object id="49" type="Collision" x="192" y="807" width="32" height="25"/>
+  <object id="50" name="entrance" type="StaticStructure" x="142" y="232" width="36" height="49">
+   <properties>
+    <property name="exit" value="boss_room_1_L_room"/>
+   </properties>
+  </object>
+  <object id="51" name="spawn" type="Spawn" x="160" y="896"/>
+ </objectgroup>
+</map>

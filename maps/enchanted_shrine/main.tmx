@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="10" height="11" tilewidth="32" tileheight="32" infinite="0" nextlayerid="8" nextobjectid="128">
+ <properties>
+  <property name="limit_edges" type="bool" value="false"/>
+  <property name="map_name" value="Enchanted Shrine"/>
+ </properties>
+ <tileset firstgid="1" source="../../tiled/Floor.tsx"/>
+ <tileset firstgid="7" source="../../tiled/Structures.tsx"/>
+ <tileset firstgid="45" source="../../tiled/Plants.tsx"/>
+ <tileset firstgid="71" source="../../tiled/Walls.tsx"/>
+ <layer id="1" name="Ground" width="10" height="11">
+  <data encoding="csv">
+0,0,0,0,6,4,0,0,0,0,
+0,0,109,4,4,4,4,109,0,0,
+0,6,4,4,4,4,4,5,4,0,
+0,4,4,4,4,5,4,4,4,0,
+0,4,4,4,5,4,4,4,4,0,
+0,4,4,6,4,4,6,4,4,0,
+0,4,4,5,4,4,4,5,4,0,
+0,4,4,4,5,4,4,4,4,0,
+0,4,5,4,4,4,5,4,4,0,
+0,6,4,5,4,4,4,4,6,0,
+0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer id="4" name="Walls" width="10" height="11">
+  <data encoding="csv">
+0,0,91,93,0,0,170,95,0,0,
+91,93,122,109,0,0,186,120,94,95,
+107,109,138,0,0,0,0,136,110,111,
+97,0,0,0,0,0,0,0,0,112,
+129,0,0,0,0,0,0,0,0,96,
+129,0,0,0,0,0,0,0,0,128,
+97,0,0,0,0,0,0,0,0,96,
+113,0,0,0,0,0,0,0,0,112,
+113,0,0,0,0,0,0,0,0,112,
+129,0,0,0,0,0,0,0,0,128,
+139,140,99,100,101,141,99,100,101,143
+</data>
+ </layer>
+ <objectgroup id="2" name="Struct">
+  <object id="124" name="entrance" type="StaticStructure" x="128" y="0" width="64" height="54">
+   <properties>
+    <property name="exit" value="enchanted_shrine/tut_decision"/>
+   </properties>
+  </object>
+  <object id="1" name="statue" type="DynamicStructure" gid="25" x="141" y="165" width="37" height="72"/>
+  <object id="21" name="pillar_short" type="DynamicStructure" gid="23" x="64" y="224" width="32" height="57"/>
+  <object id="30" name="pillar_tall" type="DynamicStructure" gid="24" x="224" y="128" width="32" height="77"/>
+  <object id="31" name="pillar_tall" type="DynamicStructure" gid="24" x="224" y="224" width="32" height="77"/>
+  <object id="32" name="pillar_tall" type="DynamicStructure" gid="24" x="64" y="128" width="32" height="77"/>
+  <object id="45" name="pillar_short" type="DynamicStructure" gid="23" x="64" y="320" width="32" height="57"/>
+  <object id="46" name="pillar_short" type="DynamicStructure" gid="23" x="224" y="320" width="32" height="57"/>
+  <object id="47" name="archway" type="DynamicStructure" gid="15" x="128" y="64" width="64" height="64"/>
+  <object id="61" name="spawn" type="Spawn" x="160" y="176"/>
+  <object id="77" name="bench_left" type="DynamicStructure" gid="40" x="228" y="280" width="27" height="61"/>
+  <object id="78" name="bench_right" type="DynamicStructure" gid="41" x="65" y="280" width="27" height="61"/>
+  <object id="79" name="bench_right" type="DynamicStructure" gid="41" x="65" y="184" width="27" height="61"/>
+  <object id="80" name="bench_left" type="DynamicStructure" gid="40" x="228" y="184" width="27" height="61"/>
+  <object id="81" name="wooden_box_big" type="DynamicStructure" gid="37" x="32" y="121" width="32" height="46"/>
+  <object id="83" name="pot1" type="DynamicStructure" gid="32" x="41" y="131" width="21" height="32"/>
+  <object id="84" name="stone_box" type="DynamicStructure" gid="35" x="256" y="230" width="32" height="46"/>
+  <object id="86" name="pot2" type="DynamicStructure" gid="33" x="263" y="242" width="25" height="27"/>
+  <object id="89" name="pot1" type="DynamicStructure" gid="32" x="32" y="301" width="21" height="32"/>
+  <object id="93" name="pot2" type="DynamicStructure" gid="33" x="38" y="312" width="25" height="27"/>
+  <object id="126" name="door" type="DynamicStructure" gid="27" x="141.5" y="63" width="37" height="51">
+   <properties>
+    <property name="door_closed" type="bool" value="true"/>
+    <property name="key_id" value="tut_main"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="3" name="Fauna">
+  <object id="17" type="Fauna" gid="54" x="169" y="157" width="6" height="5"/>
+  <object id="49" type="Fauna" gid="54" x="128" y="192" width="6" height="5"/>
+  <object id="50" type="Fauna" gid="54" x="192" y="175" width="6" height="5"/>
+  <object id="51" type="Fauna" gid="54" x="128" y="160" width="6" height="5"/>
+  <object id="52" type="Fauna" gid="54" x="103" y="173" width="6" height="5"/>
+  <object id="58" type="Fauna" gid="54" x="168" y="202" width="6" height="5"/>
+  <object id="59" type="Fauna" gid="54" x="212" y="187" width="6" height="5"/>
+  <object id="60" type="Fauna" gid="54" x="120" y="206" width="6" height="5"/>
+  <object id="97" type="Fauna" gid="54" x="192" y="223" width="6" height="5"/>
+  <object id="98" type="Fauna" gid="54" x="150" y="238" width="6" height="5"/>
+  <object id="99" type="Fauna" gid="54" x="135" y="263" width="6" height="5"/>
+  <object id="100" type="Fauna" gid="54" x="178" y="273" width="6" height="5"/>
+  <object id="101" type="Fauna" gid="54" x="162" y="291" width="6" height="5"/>
+  <object id="102" type="Fauna" gid="54" x="137" y="310" width="6" height="5"/>
+  <object id="103" type="Fauna" gid="54" x="176" y="244" width="6" height="5"/>
+  <object id="104" type="Fauna" gid="54" x="208" y="315" width="6" height="5"/>
+  <object id="108" type="Fauna" gid="54" x="123" y="242" width="6" height="5"/>
+  <object id="109" type="Fauna" gid="54" x="117" y="284" width="6" height="5"/>
+  <object id="110" type="Fauna" gid="54" x="207" y="263" width="6" height="5"/>
+  <object id="111" type="Fauna" gid="54" x="205" y="235" width="6" height="5"/>
+  <object id="112" type="Fauna" gid="54" x="198" y="203" width="6" height="5"/>
+ </objectgroup>
+ <objectgroup id="7" name="Special"/>
+ <objectgroup id="6" name="Light"/>
+</map>
