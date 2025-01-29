@@ -1,15 +1,7 @@
 {
   "1": {
-    "player": {
-      "position": {
-        "x": 315,
-        "y": 3059
-      },
-      "health": 100
-    },
-    "world": {
-      "current_map": "ashwood_flats/ashwood_flats.tmx"
-    },
+    "player": { "position": { "x": 315, "y": 3459 }, "health": 100 },
+    "world": { "current_map": "ashwood_flats/ashwood_flats.tmx" },
     "cutscene": null
   },
   "2": null,

@@ -162,7 +162,6 @@ def generate_collision(obj):
             )
             collision_group.append(hitbox)
 
-    
 
 def load_map(
     context,
@@ -300,7 +299,7 @@ def load_map(
                             exit_index=exit_index,
                         )
                     )
-                
+
                 case _:
                     Tile(
                         width=obj.width * scale_multiplier,

@@ -1,8 +1,8 @@
 import pygame
 from pygame.locals import *
 from random import randint
-
 from settings import *
+import globals
 
 pygame.mixer.init()
 pygame.mixer.music.set_volume(music_vol)
@@ -13,6 +13,7 @@ class AudioHandler(pygame.sprite.Sprite):
         self.location = None
 
         self.background_music_started = False
+        self.player_walk_channel = pygame.mixer.Channel(2)
 
     def setLocation(self, location):
         if not self.location == location:
@@ -20,19 +21,52 @@ class AudioHandler(pygame.sprite.Sprite):
             self.background_music_started = False
 
     def startBackgroundMusic(self):
-        match self.location:
-            case "Enchanted Shrine":
-                pygame.mixer.music.load("audio/background_music/enchanted_shrine.mp3")
-                pygame.mixer.music.play(-1)
-            case "Ashwood Flats":
-                pygame.mixer.music.load("audio/background_music/bg_1.mp3")
-                pygame.mixer.music.play(-1)
+
+        if globals.game_context.game_state == "game" or globals.game_context.game_state == "cutscene":
+            print(globals.game_context.game_state, self.location)
+            match self.location:
+                case "Enchanted Shrine":
+                    pygame.mixer.music.load("audio/background_music/enchanted_shrine.mp3")
+                    pygame.mixer.music.play(-1)
+                case "Ashwood Flats":
+                    pygame.mixer.music.load("audio/background_music/bg_1.mp3")
+                    pygame.mixer.music.play(-1)
+        else: 
+            print(globals.game_context.game_state)
+            self.background_music_started = False
+
+    def stopBackgroundMusic(self):
+        pygame.mixer.music.stop()
+
+    # Get the sound path from the sound library
+    def getNestedValue(self, keys, default=None):
+        #
+        sound_library = globals.sound_library
+        for key in keys:
+            print(key)
+            sound_library = sound_library.get(key, {})
+            if sound_library == {}:  # If key is missing, return default
+                return default
+        return sound_library
+
+    def playSoundEffect(self, path: list, channel=None):
+        print(path)
+        sound_file = self.getNestedValue(path)
+        print(sound_file)
+        # print(sound_file)
+        sound_effect = pygame.mixer.Sound(sound_file)
+        sound_effect.set_volume(sound_vol)
+        if "player" in path:
+            self.player_walk_channel.play(sound_effect)
+        else:
+            sound_effect.play()
 
     def update(self):
         try:
             if not self.background_music_started:
-                self.startBackgroundMusic()
                 self.background_music_started = True
+                self.startBackgroundMusic()
+
 
         except:
             # No audio device connected

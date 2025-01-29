@@ -2,8 +2,10 @@ import sys
 
 import pygame
 import math
+import random
 from pygame.locals import *
 from settings import *
+import globals
 
 red = (255, 0, 0)
 green = (0, 255, 0)
@@ -118,6 +120,9 @@ class Player(pygame.sprite.Sprite):
         )
         self.image_rect = self.image.get_rect(center=self.rect.center)
 
+        self.movement_sfx_timeout = 0.2
+        self.attacking_sfx_playing = False
+        self.defending_sfx_playing = False
         # self.shadow_width = 27
         # self.shadow_height = 28
 
@@ -151,9 +156,9 @@ class Player(pygame.sprite.Sprite):
         # Adjust rect position by camera offset
         adjusted_rect = self.rect.move(-offset.x, -offset.y)
         adj_col_rect = self.image_rect.move(-offset.x, -offset.y)
-        # Fill the rect with a red color for debugging
-
+        # Fill the rect with a blue color for debugging
         # pygame.draw.rect(screen, blue, adj_col_rect)
+
         pygame.draw.rect(screen, green, adjusted_rect, 2, 1)
 
     def user_input(self, dt):
@@ -217,6 +222,7 @@ class Player(pygame.sprite.Sprite):
             else:
                 self.speed = player_speed
 
+            # Only handle roll logic if the player is moving
             if self.velocity_x != 0 or self.velocity_y != 0:
                 # Roll logic
                 if not self.roll_started:
@@ -247,7 +253,6 @@ class Player(pygame.sprite.Sprite):
 
             elif self.attack_started == True:
                 self.attack(dt)
-
 
     # Player Actions
     def attack(self, dt):
@@ -380,11 +385,45 @@ class Player(pygame.sprite.Sprite):
         if self.facing == "left":
             self.image = pygame.transform.flip(self.image, True, False)
 
+    # Handle audio updates for sound effects related to the player
+    def update_audio(self, dt):
+        # Redefine the audio handler for simpler calling
+        audio_handler = globals.game_context.audio_handler
+
+        # Reduce sound effect timeouts by delta time
+        self.movement_sfx_timeout -= dt
+
+        # Checking if a sound effect for movement is currently playing
+        if self.movement_sfx_timeout < 0:
+            # If no movement sfx is currently playing, check if the aciton is walking
+            if self.action == "walking":
+                randomiser = str(random.randint(1,5))
+                # Play the walking sound effect
+                audio_handler.playSoundEffect(
+                ["player", "footsteps", "walk", "grass", randomiser]
+                )
+                self.movement_sfx_timeout = 0.15
+            elif self.action == "sprinting":
+                randomiser = str(random.randint(1,5))
+                audio_handler.playSoundEffect(
+                    ["player", "footsteps", "sprint", "grass", randomiser]
+                )
+                self.movement_sfx_timeout = 0.12
+
+        if not self.attacking_sfx_playing:
+            if self.action == "attacking":
+                randomiser = str(random.randint(1,8))
+                audio_handler.playSoundEffect(
+                    ["player", "attack", randomiser]
+                )
+                self.attacking_sfx_playing = True
+
     def update(self, dt):
         # Reduce cooldowns
         if self.attack_cooldown > 0:
             self.attack_cooldown -= dt
         elif self.attack_cooldown < 0:
+            self.attacking_sfx_playing = False
             self.attack_cooldown = 0
 
         if self.defend_cooldown > 0:
@@ -428,4 +467,5 @@ class Player(pygame.sprite.Sprite):
                 self.rect_width = 20 * scale_multiplier
 
         self.update_frame(dt)
+        self.update_audio(dt)
         self.move()

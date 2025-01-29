@@ -10,6 +10,7 @@ text_color = (218, 167, 119)
 
 dark = (32, 32, 32)
 
+
 class HUD(pygame.sprite.Sprite):
     def __init__(self, target):
         self.pos = (64, 32)
@@ -60,12 +61,15 @@ class HUD(pygame.sprite.Sprite):
             self.pos[0] + (32 * scale_multiplier),
             self.pos[1] + (31 * scale_multiplier),
         )
-        
+
         self.font = pygame.font.Font("./assets/fonts/alagard.ttf", 64)
         self.shards_info = self.font.render("0 0 0", True, speaker_color)
-        self.shards_info_pos = ((screen_width - self.shards_info.get_width()) - 64, (screen_height - self.shards_info.get_height()) - 64)
-        # add to draw func and update pos 
-    
+        self.shards_info_pos = (
+            (screen_width - self.shards_info.get_width()) - 64,
+            (screen_height - self.shards_info.get_height()) - 64,
+        )
+        # add to draw func and update pos
+
     def update_values(self, target):
         self.health = target.health
         self.armour = target.armour

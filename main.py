@@ -83,7 +83,6 @@ cutscene_bottom_rect = pygame.Rect(
 )
 
 cutscene_counter = 2
-cutscene = game_context.cutscene
 load_cutscene_actions = True
 cutscene_actions_finished = False
 cutscene_postition_set = False
@@ -98,6 +97,7 @@ debug_pos = (64, 1000)
 while True:
     dt = fps_clock.tick(fps) / 1000  # Calculate delta time
     screen.fill("#060606")
+    cutscene = game_context.cutscene
     event_list = pygame.event.get()
     for event in event_list:
         if globals.game_context.game_state == "menu":
@@ -167,9 +167,8 @@ while True:
                 dialogue_box.add_line(
                     "Each binding its own power, each turning to ash and shadow."
                 )
-
                 dialogue_box.add_line(
-                    "In these lands, now trusted and lost to time, the Charred Relics lie guarded."
+                    "In these lands, now trusted and lost to time, the Charred Relics lie guarded." 
                 )
                 dialogue_box.add_line(
                     "The lords who hold them, - once human, now consumed - dwell in places forsaken."
@@ -185,7 +184,6 @@ while True:
                     "You have been chosen, bearer of a distant flame, to seek the Charred Relics,"
                 )
                 dialogue_box.add_line("And restore what has been broken.")
-
                 dialogue_box.add_line(
                     "Your path will lead you through Edranor's cursed halls, "
                 )
@@ -197,7 +195,6 @@ while True:
                 dialogue_box.add_line(
                     "Only when each Relic is in hand may you stand before Eldran, fallen ruler of this forsaken realm."
                 )
-
                 dialogue_box.add_line("Arise, and bear the weight of the Ashen Crown.")
                 dialogue_box.add_line("Your burden is both purpose and curse.")
                 dialogue_box.add_line("May the flames guide you,")
@@ -270,9 +267,7 @@ while True:
         # wall.update(dt)
 
         enemy_group.update(dt, player, camera_group.offset)
-        entity_group.update(
-            dt, camera_group.offset, player.rect
-        )
+        entity_group.update(dt, camera_group.offset, player.rect)
 
         # Debug
         if debugging:
@@ -341,9 +336,6 @@ while True:
         transitioner.update()
         transitioner.draw(screen)
 
-        debug = font.render(f"{player.pos}", True, (242, 219, 181))
-        screen.blit(debug, debug_pos)
-
         # print(player.pos, camera_group.limit_edges, camera_group.map_height, camera_group.map_width)
 
         for event in event_list:
@@ -360,6 +352,9 @@ while True:
 
     if options_menu.visible:
         options_menu.draw(screen=screen)
+
+    debug = font.render(f"{game_context.game_state, game_context.cutscene}", True, (242, 219, 181))
+    screen.blit(debug, debug_pos)
 
     audio_handler.update()
     # Flip display, tick fps

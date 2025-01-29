@@ -22,16 +22,14 @@ def save_game(data, filename="savefile.json"):
         json.dump(data, save_file, indent=4)
 
 
-def load_game( save: int, filename="savefile.json"):
+def load_game(save: int, filename="savefile.json"):
     try:
         with open(filename, "r") as save_file:
             data = json.load(save_file)
 
         if data[str(save)]:
-            print('data')
             return data[str(save)]
         else:
-            print('ntn')
             return data["DEFAULT"]
     except:
-        return globals.new_game_data
+        return data["DEFAULT"]

@@ -115,7 +115,7 @@ class MainMenu(pygame.sprite.Sprite):
 
             if self.start_game_rect.collidepoint(mouse_pos):
 
-                loaded_data = load_game(1)
+                loaded_data = load_game(2)
                 if loaded_data:
                     player_pos = loaded_data["player"]["position"]
                     current_map = loaded_data["world"]["current_map"]
@@ -132,13 +132,17 @@ class MainMenu(pygame.sprite.Sprite):
                     camera_group.first_instance = True
                     camera_group.offset.x = player.rect.centerx - camera_group.half_w
                     camera_group.offset.y = player.rect.centery - camera_group.half_h
-
-                    globals.game_context.game_state = "game"
+                    
+                    if loaded_data["cutscene"]:
+                        context.game_state = "cutscene"
+                        context.cutscene = loaded_data["cutscene"]
+                    else:
+                        context.game_state = "game"
 
                     transitioner.alpha = 255
                     transitioner.player_can_move = False
                     transitioner.start_fade_out()
-            
+
             elif self.options_rect.collidepoint(mouse_pos):
                 options_menu.visible = True
 

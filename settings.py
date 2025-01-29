@@ -21,8 +21,17 @@ player_speed = 320 * scale_multiplier
 base_speed = player_speed * 0.9
 
 # Volume
-master_vol = 0
-sound_vol_pre = 1
-sound_vol = sound_vol_pre * master_vol
-music_vol_pre = 1
-music_vol = music_vol_pre * master_vol
+# Set master volume
+master_vol = 0.5
+
+# Decrease the sound volume as pygame mixer sound effects are inherently loud
+sound_vol_decreaser = 0.5
+# Set sound volume independantly
+sound_vol_init = 0.25 * sound_vol_decreaser
+
+# Set music volume independantly
+music_vol_init = 0.5
+
+# Get overral sound & music volume
+sound_vol = sound_vol_init * master_vol
+music_vol = music_vol_init * master_vol

@@ -61,7 +61,7 @@ class CameraGroup(pygame.sprite.Group):
                 self.offset.y = 0
             elif self.offset.y + screen_width > self.map_height * scale_multiplier:
                 self.offset.y = self.map_height * scale_multiplier - screen_width
-                
+
         # self.offset.x = 0
         # self.offset.y = 0
 
@@ -105,7 +105,7 @@ class CameraGroup(pygame.sprite.Group):
         # Draw ground tiles
         for sprite in ground_tile_group:
             offset_pos = sprite.rect.topleft - self.offset
-
+            # print(sprite)
             if (
                 hasattr(sprite, "shadow_image") == True
                 and sprite.shadow_image is not None

@@ -10,9 +10,57 @@ from settings import *
 pygame.init()
 
 # Global variables
-
-
 screen = pygame.display.set_mode((screen_width, screen_height), pygame.FULLSCREEN)
+
+# Sound Library
+
+sound_library = {
+    "player": {
+        "footsteps": {
+            "crouch": {"dirt": {"1": None, "2": None}, "grass": {"1": None, "2": None}},
+            "hard_walk": {
+                "dirt": {"1": None, "2": None},
+                "grass": {"1": None, "2": None},
+            },
+            "jump": {"dirt": {"1": None, "2": None}, "grass": {"1": None, "2": None}},
+            "sprint": {
+                "dirt": {"1": None, "2": None},
+                "grass": {
+                    "1": "audio/sfx/footsteps/grass/walk/1.ogg",
+                    "2": "audio/sfx/footsteps/grass/walk/2.ogg",
+                    "3": "audio/sfx/footsteps/grass/walk/3.ogg",
+                    "4": "audio/sfx/footsteps/grass/walk/4.ogg",
+                    "5": "audio/sfx/footsteps/grass/walk/5.ogg",
+                },
+            },
+            "walk": {
+                "dirt": {"1": None, "2": None},
+                "grass": {
+                    "1": "audio/sfx/footsteps/grass/walk/1.ogg",
+                    "2": "audio/sfx/footsteps/grass/walk/2.ogg",
+                    "3": "audio/sfx/footsteps/grass/walk/3.ogg",
+                    "4": "audio/sfx/footsteps/grass/walk/4.ogg",
+                    "5": "audio/sfx/footsteps/grass/walk/5.ogg",
+                },
+            },
+        },
+        "attack": {
+            "1": "audio/sfx/attack/1.ogg",
+            "2": "audio/sfx/attack/2.ogg",
+            "3": "audio/sfx/attack/3.ogg",
+            "4": "audio/sfx/attack/4.ogg",
+            "5": "audio/sfx/attack/5.ogg",
+            "6": "audio/sfx/attack/6.ogg",
+            "7": "audio/sfx/attack/7.ogg",
+            "8": "audio/sfx/attack/8.ogg",
+        },
+        "defend": {},
+        "hurt": {},
+        "death": {},
+    },
+    "goblin": {"footsteps": {}, "attack": {}, "defend": {}, "hurt": {}, "death": {}},
+    "skeleton": {"footsteps": {}, "attack": {}, "defend": {}, "hurt": {}, "death": {}},
+}
 
 
 # Game Context
@@ -29,13 +77,10 @@ class GameContext:
         self.location_display = LocationDisplayer("???")
         self.audio_handler = AudioHandler()
         self.transitioner = Transitioner(screen_width, screen_height)
+        self.sound_library = sound_library
         # Ref vars
         self.game_state = "menu"
-        self.cutscene = "game_state"
+        self.cutscene = None
 
-
-collision_group = []
-trigger_group = []
-light_group = []
 
 game_context = GameContext()
