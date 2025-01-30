@@ -23,7 +23,6 @@ class AudioHandler(pygame.sprite.Sprite):
     def startBackgroundMusic(self):
 
         if globals.game_context.game_state == "game" or globals.game_context.game_state == "cutscene":
-            print(globals.game_context.game_state, self.location)
             match self.location:
                 case "Enchanted Shrine":
                     pygame.mixer.music.load("audio/background_music/enchanted_shrine.mp3")
@@ -32,7 +31,6 @@ class AudioHandler(pygame.sprite.Sprite):
                     pygame.mixer.music.load("audio/background_music/bg_1.mp3")
                     pygame.mixer.music.play(-1)
         else: 
-            print(globals.game_context.game_state)
             self.background_music_started = False
 
     def stopBackgroundMusic(self):
@@ -43,17 +41,13 @@ class AudioHandler(pygame.sprite.Sprite):
         #
         sound_library = globals.sound_library
         for key in keys:
-            print(key)
             sound_library = sound_library.get(key, {})
             if sound_library == {}:  # If key is missing, return default
                 return default
         return sound_library
 
     def playSoundEffect(self, path: list, channel=None):
-        print(path)
         sound_file = self.getNestedValue(path)
-        print(sound_file)
-        # print(sound_file)
         sound_effect = pygame.mixer.Sound(sound_file)
         sound_effect.set_volume(sound_vol)
         if "player" in path:

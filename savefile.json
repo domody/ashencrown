@@ -1,14 +1,30 @@
 {
-  "1": {
-    "player": { "position": { "x": 315, "y": 3459 }, "health": 100 },
-    "world": { "current_map": "ashwood_flats/ashwood_flats.tmx" },
-    "cutscene": null
-  },
-  "2": null,
-  "3": null,
-  "DEFAULT": {
-    "player": { "position": { "x": 640, "y": 704 }, "health": 100 },
-    "world": { "current_map": "enchanted_shrine/main.tmx" },
-    "cutscene": "game_start"
-  }
+    "1": {
+        "player": {
+            "position": {
+                "x": 2142,
+                "y": 1704
+            },
+            "health": 100
+        },
+        "world": {
+            "current_map": "ashwood_flats/ashwood_flats.tmx"
+        },
+        "cutscene": null
+    },
+    "2": null,
+    "3": null,
+    "DEFAULT": {
+        "player": {
+            "position": {
+                "x": 640,
+                "y": 704
+            },
+            "health": 100
+        },
+        "world": {
+            "current_map": "enchanted_shrine/main.tmx"
+        },
+        "cutscene": "game_start"
+    }
 }

@@ -221,9 +221,9 @@
     <property name="exit_index" value="EastMainConnection"/>
    </properties>
   </object>
-  <object id="237" type="Enemy" x="544" y="672">
+  <object id="237" type="Enemy" x="544" y="224">
    <properties>
-    <property name="enemy" value="goblin"/>
+    <property name="enemy" value="masked_orc"/>
    </properties>
   </object>
  </objectgroup>

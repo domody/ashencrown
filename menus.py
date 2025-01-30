@@ -115,7 +115,7 @@ class MainMenu(pygame.sprite.Sprite):
 
             if self.start_game_rect.collidepoint(mouse_pos):
 
-                loaded_data = load_game(2)
+                loaded_data = load_game(1)
                 if loaded_data:
                     player_pos = loaded_data["player"]["position"]
                     current_map = loaded_data["world"]["current_map"]

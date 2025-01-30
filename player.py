@@ -402,13 +402,13 @@ class Player(pygame.sprite.Sprite):
                 audio_handler.playSoundEffect(
                 ["player", "footsteps", "walk", "grass", randomiser]
                 )
-                self.movement_sfx_timeout = 0.15
+                self.movement_sfx_timeout = 0.12
             elif self.action == "sprinting":
-                randomiser = str(random.randint(1,5))
+                randomiser = str(random.randint(1,3))
                 audio_handler.playSoundEffect(
                     ["player", "footsteps", "sprint", "grass", randomiser]
                 )
-                self.movement_sfx_timeout = 0.12
+                self.movement_sfx_timeout = 0.10
 
         if not self.attacking_sfx_playing:
             if self.action == "attacking":

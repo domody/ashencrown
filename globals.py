@@ -3,7 +3,7 @@ from camera import CameraGroup
 from entityGroup import EntityGroup
 from enemy.enemyGroup import EnemyGroup
 from audio import AudioHandler
-from ui import LocationDisplayer
+from ui import LocationDisplayer, DialogueBox
 from maps import Transitioner
 from settings import *
 
@@ -77,10 +77,12 @@ class GameContext:
         self.location_display = LocationDisplayer("???")
         self.audio_handler = AudioHandler()
         self.transitioner = Transitioner(screen_width, screen_height)
+        self.dialogue_box = DialogueBox("???")
         self.sound_library = sound_library
         # Ref vars
         self.game_state = "menu"
         self.cutscene = None
+        self.save_file = "1"
 
 
 game_context = GameContext()

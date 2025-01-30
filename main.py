@@ -57,7 +57,7 @@ ground_tile_group = game_context.ground_tile_group
 transitioner = game_context.transitioner
 statue = ""
 
-dialogue_box = DialogueBox("???")
+dialogue_box = game_context.dialogue_box
 location_display = game_context.location_display
 
 load_map(
@@ -255,9 +255,9 @@ while True:
 
     elif globals.game_context.game_state == "game":
         pygame.mouse.set_visible(False)
+        
         # Update.
         camera_group.update(dt)
-        camera_group.custom_draw(player, dt, game_context)
 
         # sprite_group.draw(screen)
 
@@ -319,6 +319,9 @@ while True:
         ):
             player.can_move = True
             transitioner.player_can_move = True
+
+        # Draw game objects/world
+        camera_group.custom_draw(player, dt, game_context)
 
         # Draw UI
         hud.draw(screen, player)

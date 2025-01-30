@@ -8,7 +8,7 @@ display_info = pygame.display.Info()
 screen_width = display_info.current_w  # Get the current display width
 screen_height = display_info.current_h  # Get the current display height
 scale_multiplier = screen_width / 640  # 640 x
-debugging = False
+debugging = True
 
 fps = 144
 
@@ -30,7 +30,7 @@ sound_vol_decreaser = 0.5
 sound_vol_init = 0.25 * sound_vol_decreaser
 
 # Set music volume independantly
-music_vol_init = 0.5
+music_vol_init = 0
 
 # Get overral sound & music volume
 sound_vol = sound_vol_init * master_vol

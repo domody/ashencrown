@@ -336,7 +336,7 @@ def load_map(
                 case "goblin":
                     enemy = Goblin(camera_group, start_pos=(obj.x, obj.y))
 
-                case "maskedorc":
+                case "masked_orc":
                     enemy = MaskedOrc(camera_group, start_pos=(obj.x, obj.y))
 
             entity_group.add(enemy)
