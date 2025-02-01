@@ -62,6 +62,13 @@ class Goblin(Enemy):
         )
         self.image_rect = self.image.get_rect(center=self.rect.center)
 
+        self.shadow_width = 25
+        self.shadow_height = 24
+        self.shadow_image = pygame.image.load('assets/player/playershadow.png').convert_alpha()
+        self.shadow_image = pygame.transform.scale(self.shadow_image, (self.shadow_width * scale_multiplier, self.shadow_height * scale_multiplier))
+        self.shadow_image.set_alpha(64)
+        self.shadow_rect = self.shadow_image.get_rect(bottomleft = self.rect.bottomleft)
+        
     def update_incrementer(self):
         if self.action == "idle":
             self.pos[1] -= (45 * scale_multiplier) - self.height

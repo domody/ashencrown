@@ -123,13 +123,13 @@ class Player(pygame.sprite.Sprite):
         self.movement_sfx_timeout = 0.2
         self.attacking_sfx_playing = False
         self.defending_sfx_playing = False
-        # self.shadow_width = 27
-        # self.shadow_height = 28
-
-        # self.shadow_image = pygame.image.load('assets/player/playershadow.png').convert_alpha()
-        # self.shadow_image = pygame.transform.scale(self.shadow_image, (self.shadow_width * scale_multiplier, self.shadow_height * scale_multiplier))
-
-        # self.shadow_rect = self.shadow_image.get_rect(bottomleft = self.collision_rect.bottomleft)
+        
+        self.shadow_width = 25
+        self.shadow_height = 24
+        self.shadow_image = pygame.image.load('assets/player/playershadow.png').convert_alpha()
+        self.shadow_image = pygame.transform.scale(self.shadow_image, (self.shadow_width * scale_multiplier, self.shadow_height * scale_multiplier))
+        self.shadow_image.set_alpha(64)
+        self.shadow_rect = self.shadow_image.get_rect(bottomleft = self.rect.bottomleft)
 
     def add_to_camera_group(self, group):
         super().__init__(group)

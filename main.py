@@ -331,15 +331,18 @@ while True:
         statue_prompt.draw(screen)
 
         dialogue_box.draw(screen, event_list)
-        # bossbar.draw(screen=screen)
+        
+        for boss_health_bar_group in globals.game_context.boss_health_bars:
+            boss_health_bar_group[1].draw(screen, boss_health_bar_group[0])
+
+            if boss_health_bar_group[0].state == "dead": 
+                globals.game_context.boss_health_bars.remove(boss_health_bar_group)
 
         location_display.draw(screen, dt)
 
         # Update the transitioner (fading effect)
         transitioner.update()
         transitioner.draw(screen)
-
-        # print(player.pos, camera_group.limit_edges, camera_group.map_height, camera_group.map_width)
 
         for event in event_list:
             if event.type == KEYDOWN and event.key == K_i:
@@ -356,7 +359,7 @@ while True:
     if options_menu.visible:
         options_menu.draw(screen=screen)
 
-    debug = font.render(f"{game_context.game_state, game_context.cutscene}", True, (242, 219, 181))
+    debug = font.render(f"{fps_clock}", True, (242, 219, 181))
     screen.blit(debug, debug_pos)
 
     audio_handler.update()

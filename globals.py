@@ -79,6 +79,7 @@ class GameContext:
         self.transitioner = Transitioner(screen_width, screen_height)
         self.dialogue_box = DialogueBox("???")
         self.sound_library = sound_library
+        self.boss_health_bars = []
         # Ref vars
         self.game_state = "menu"
         self.cutscene = None

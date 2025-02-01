@@ -419,6 +419,7 @@ class DialogueBox(pygame.sprite.Sprite):
 
 class BossHealthBar(pygame.sprite.Sprite):
     def __init__(self, target_name, target_health=100):
+        self.max_health = target_health
         self.health = target_health
         self.name = target_name
 
@@ -451,7 +452,26 @@ class BossHealthBar(pygame.sprite.Sprite):
             (self.pos[1] + (6 * scale_multiplier)),
         )
 
-    def draw(self, screen):
+    def update_values(self, target):
+        self.health = target.health
+
+        self.health_percent = self.health / self.max_health
+
+        if self.health_percent < 0:
+            self.health_percent = 0
+
+        self.purple_bar = pygame.image.load("assets/ui/hud/purple_bar.png").convert_alpha()
+        self.purple_bar = pygame.transform.scale(
+            self.purple_bar,
+            (
+                (self.purple_bar_width * self.health_percent) * scale_multiplier,
+                4 * scale_multiplier,
+            ),
+        )
+
+    def draw(self, screen, target):
+        self.update_values(target)
+
         # Create a background screen behind the health bar
         background = pygame.Surface(
             (self.image.get_width() - (2 * scale_multiplier), 4 * scale_multiplier),

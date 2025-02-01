@@ -56,6 +56,7 @@ class Enemy(pygame.sprite.Sprite):
         self.attack_started = False
         self.attack_finished = False
         self.attack_damage = attack_damage
+        self.attack_type = 1
         self.dealt_damage = False
         self.target_dead = False
 
@@ -223,7 +224,10 @@ class Enemy(pygame.sprite.Sprite):
                     self.velocity_y = direction.y * self.speed * dt
 
             elif self.state == "attacking":
-                self.handle_attacking(dt)
+                if self.attack_type == 1:
+                    self.handle_attacking(dt)
+                elif self.attack_type >= 1:
+                    self.handle_alternate_attacking(dt)
 
             elif self.state == "idle":
                 # self.handle_wandering(dt, offset)
@@ -272,6 +276,9 @@ class Enemy(pygame.sprite.Sprite):
                 self.frame_counter = 0
                 self.current_frame = 0
                 self.attack_started = True
+
+    def handle_alternate_attacking(self, dt):
+        pass
 
     def handle_hurt(self):
         if self.hurt_finished:

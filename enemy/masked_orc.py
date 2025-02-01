@@ -2,9 +2,9 @@ import pygame
 from settings import *
 
 from enemy.base import Enemy
+from boss.base import Boss
 
-
-class MaskedOrc(Enemy):
+class MaskedOrc(Boss):
     def __init__(self, group, start_pos=(650, 1000)):
         rect_width = 36
         height = 50

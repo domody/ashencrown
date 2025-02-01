@@ -7,8 +7,8 @@ from settings import *
 import globals
 
 from tile import Tile, Hitbox, Rune, Chest, Door, Statue, GodRay
-from env.collisionGroup import CollisionGroup
 
+from ui import BossHealthBar
 from enemy.goblin import Goblin
 from enemy.masked_orc import MaskedOrc
 
@@ -335,12 +335,16 @@ def load_map(
             match obj.enemy:
                 case "goblin":
                     enemy = Goblin(camera_group, start_pos=(obj.x, obj.y))
-
+                    
                 case "masked_orc":
                     enemy = MaskedOrc(camera_group, start_pos=(obj.x, obj.y))
-
+                    health_bar = BossHealthBar("Masked Orc", target_health=enemy.health)
+                    globals.game_context.boss_health_bars.append([enemy, health_bar])
+                    
             entity_group.add(enemy)
             enemy_group.add(enemy)
+
+                
 
         elif obj.type == "GodRay":
             ray = GodRay(points=obj.points, groups=light_group)
