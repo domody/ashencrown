@@ -186,18 +186,29 @@ class MainMenu(pygame.sprite.Sprite):
 
 class OptionsMenu(pygame.sprite.Sprite):
     def __init__(self):
+        # Define if the menu is visible and create background
         self.visible = False
         self.background = pygame.Surface((screen_width, screen_height), pygame.SRCALPHA)
         self.background.fill((48, 37, 33, 255))
 
-        self.scroll_offset = 0  # Initialize scroll offset
-        self.scroll_speed = 50   # Speed of scrolling
+        # Define scroll offset and speed
+        self.scroll_offset = 0
+        self.scroll_speed = 50
 
         # Title font
         self.title_font = alagard20
-
         # Options font
         self.options_font = alagard12
+
+        # Exit options Button
+        self.exit_button = self.title_font.render("<", True, white)
+        self.exit_button_pos = (14 * scale_multiplier, 10 * scale_multiplier)
+        self.exit_button_rect = pygame.Rect(
+            self.exit_button_pos[0],
+            self.exit_button_pos[1],
+            self.exit_button.get_width(),
+            self.exit_button.get_height(),
+        )
 
         # Options Title
         self.options_title = self.title_font.render("Options", True, base_color)
@@ -205,26 +216,23 @@ class OptionsMenu(pygame.sprite.Sprite):
             (screen_width - self.options_title.get_width()) / 2,
             16 * scale_multiplier,
         )
-
         self.options_title_highlight = self.title_font.render("Options", True, highlight_color)
         self.options_title_highlight_pos = (
             (screen_width - self.options_title.get_width()) / 2,
             17.25 * scale_multiplier,
         )
 
-        # Volume settings (highlighted)
+        # Volume settings
         self.master_volume = self.options_font.render("Master Volume", True, highlight_color)
         self.master_volume_pos = (
             (screen_width - self.master_volume.get_width()) / 2,
-            62  * scale_multiplier,
+            62 * scale_multiplier,
         )
-
         self.music_volume = self.options_font.render("Music Volume", True, highlight_color)
         self.music_volume_pos = (
             (screen_width - self.music_volume.get_width()) / 2,
             122 * scale_multiplier,
         )
-
         self.sound_volume = self.options_font.render("Sound Volume", True, highlight_color)
         self.sound_volume_pos = (
             (screen_width - self.sound_volume.get_width()) / 2,
@@ -244,34 +252,132 @@ class OptionsMenu(pygame.sprite.Sprite):
             241.25 * scale_multiplier,
         )
 
-        self.menu_height = 2 * screen_height  # Dynamically calculate menu height
+        # Controls pairs
+        self.controls = [
+            ["WASD", "Movement"],
+            ["SHIFT", "Sprint"],
+            ["SPACE", "Roll"],
+            ["Left Click", "Attack"],
+            ["Right Click", "Defend"],
+        ]
+
+        # Menu height
+        self.menu_height = 2 * screen_height
+
+        # Volume slider squares arrays
+        self.master_open_squares = []
+        self.music_open_squares = []
+        self.sound_open_squares = []
+
+        # Square sizes and start positions
+        square_size = 12 * scale_multiplier
+        start_x = (screen_width - (square_size * 9 + 8 * (2 * scale_multiplier))) / 2
+        start_y = 84 * scale_multiplier
+
+        # Generate the squares for the arrays
+        for i in range(9):
+            x = start_x + i * (square_size + (2 * scale_multiplier))
+            self.master_open_squares.append(pygame.Rect(x, start_y, square_size, square_size))
+            self.music_open_squares.append(pygame.Rect(x, start_y + 60 * scale_multiplier, square_size, square_size))
+            self.sound_open_squares.append(pygame.Rect(x, start_y + 120 * scale_multiplier, square_size, square_size))
 
     def draw(self, screen):
+        # Draw background first
         screen.blit(self.background, (0, 0))
 
-        # List of all items to draw with their positions
+        # Create an array of items to draw in order
         items = [
             (self.options_title_highlight, self.options_title_highlight_pos),
             (self.options_title, self.options_title_pos),
-            (self.controls_title_highlight, self.controls_title_highlight_pos),
-            (self.controls_title, self.controls_title_pos),
             (self.master_volume, self.master_volume_pos),
             (self.music_volume, self.music_volume_pos),
             (self.sound_volume, self.sound_volume_pos),
+            (self.controls_title_highlight, self.controls_title_highlight_pos),
+            (self.controls_title, self.controls_title_pos),
         ]
 
-        # Draw each item, applying the scroll offset
+        # Draw items with scroll offset applied
         for text_surface, pos in items:
-            adjusted_y = pos[1] - self.scroll_offset  # Apply scroll
-            if -text_surface.get_height() < adjusted_y < screen_height:  # Only draw if visible
+            adjusted_y = pos[1] - self.scroll_offset
+            if -text_surface.get_height() < adjusted_y < screen_height:
                 screen.blit(text_surface, (pos[0], adjusted_y))
+
+        # Dynamic function to draw squares on screen with scroll offset applied
+        def draw_squares(squares, volume):
+            for i, rect in enumerate(squares):
+                adjusted_y = rect.y - self.scroll_offset
+                if (i + 1) / len(squares) <= volume:
+                    pygame.draw.rect(
+                        screen,
+                        base_color,
+                        (rect.x, adjusted_y, rect.width, rect.height),
+                    )
+                else:
+                    pygame.draw.rect(
+                        screen,
+                        base_color,
+                        (
+                            rect.x,
+                            adjusted_y + (rect.height / 2) - scale_multiplier,
+                            rect.width,
+                            2 * scale_multiplier,
+                        ),
+                    )
+
+        # Draw squares for each option, and pass through target volume setting
+        draw_squares(self.master_open_squares, globals.game_context.master_vol)
+        draw_squares(self.music_open_squares, globals.game_context.music_vol_init)
+        draw_squares(self.sound_open_squares, globals.game_context.sound_vol_init)
+
+        # Draw control pairs
+        start_y = 269 * scale_multiplier
+        for key, action in self.controls:
+            key_text = self.options_font.render(key, True, highlight_color)
+            action_text = self.options_font.render(action, True, highlight_color)
+            screen.blit(key_text, (245 * scale_multiplier, start_y - self.scroll_offset))
+            screen.blit(
+                action_text,
+                (
+                    screen_width - action_text.get_width() - (245 * scale_multiplier),
+                    start_y - self.scroll_offset,
+                ),
+            )
+            start_y += 16 * scale_multiplier  # Adjust spacing
+
+        # Draws exit button
+        screen.blit(self.exit_button, self.exit_button_pos)
 
     def handle_event(self, event):
         if event.type == MOUSEBUTTONDOWN:
-            if event.button == 4:  # Scroll up
+            if event.button == 1:
+                mouse_pos = pygame.mouse.get_pos()
+
+                def update_volume(squares, volume_attr):
+                    for i, rect in enumerate(squares):
+                        if rect.collidepoint(mouse_pos):
+                            setattr(globals.game_context, volume_attr, (i + 1) / 9)
+                            print(
+                                f"Clicked, new {volume_attr}:",
+                                (i + 1) / 9,
+                                getattr(globals.game_context, volume_attr),
+                            )
+
+                update_volume(self.master_open_squares, "master_vol")
+                update_volume(self.music_open_squares, "music_vol_init")
+                update_volume(self.sound_open_squares, "sound_vol_init")
+
+                if self.exit_button_rect.collidepoint(mouse_pos):
+                    self.visible = False
+
+            if event.button == 4:
                 self.scroll_offset = max(self.scroll_offset - self.scroll_speed, 0)
-            if event.button == 5:  # Scroll down
-                self.scroll_offset = min(self.scroll_offset + self.scroll_speed, self.menu_height - screen_height)
+            if event.button == 5:
+                self.scroll_offset = min(
+                    self.scroll_offset + self.scroll_speed,
+                    self.menu_height - screen_height,
+                )
+
+
 
 
 class PauseMenu(pygame.sprite.Sprite):

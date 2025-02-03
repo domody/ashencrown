@@ -62,6 +62,8 @@ sound_library = {
     "skeleton": {"footsteps": {}, "attack": {}, "defend": {}, "hurt": {}, "death": {}},
 }
 
+# Decrease the sound volume as pygame mixer sound effects are inherently loud
+sound_vol_decreaser = 0.5
 
 # Game Context
 class GameContext:
@@ -84,6 +86,10 @@ class GameContext:
         self.game_state = "menu"
         self.cutscene = None
         self.save_file = "1"
-
+        self.master_vol = float(5/9)
+        self.sound_vol_init = float(2/9)
+        self.music_vol_init = float(0/9)
+        self.sound_vol = self.sound_vol_init * sound_vol_decreaser * self.master_vol
+        self.music_vol = self.music_vol_init * self.master_vol
 
 game_context = GameContext()

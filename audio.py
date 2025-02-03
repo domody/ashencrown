@@ -5,7 +5,6 @@ from settings import *
 import globals
 
 pygame.mixer.init()
-pygame.mixer.music.set_volume(music_vol)
 
 
 class AudioHandler(pygame.sprite.Sprite):
@@ -15,6 +14,7 @@ class AudioHandler(pygame.sprite.Sprite):
         self.background_music_started = False
         self.player_walk_channel = pygame.mixer.Channel(2)
 
+        
     def setLocation(self, location):
         if not self.location == location:
             self.location = location
@@ -49,7 +49,7 @@ class AudioHandler(pygame.sprite.Sprite):
     def playSoundEffect(self, path: list, channel=None):
         sound_file = self.getNestedValue(path)
         sound_effect = pygame.mixer.Sound(sound_file)
-        sound_effect.set_volume(sound_vol)
+        sound_effect.set_volume(globals.game_context.sound_vol)
         if "player" in path:
             self.player_walk_channel.play(sound_effect)
         else:
@@ -57,6 +57,7 @@ class AudioHandler(pygame.sprite.Sprite):
 
     def update(self):
         try:
+            pygame.mixer.music.set_volume(globals.game_context.music_vol)
             if not self.background_music_started:
                 self.background_music_started = True
                 self.startBackgroundMusic()
