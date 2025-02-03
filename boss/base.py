@@ -33,7 +33,7 @@ class Boss(Enemy):
     def boss_handler(self, dt):
         if (self.health / self.max_health) < 0.3:
             self.attack_type = 2
-
+        
     def update(self, dt):
         if self.target_dead:
             self.state = "idle"

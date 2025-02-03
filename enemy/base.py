@@ -19,7 +19,7 @@ class Enemy(pygame.sprite.Sprite):
         group,
         animation_incrementer=36,
         attack_range=54,
-        attack_damage=10,
+        attack_damage=1,
     ):
         super().__init__(group)
 
@@ -422,6 +422,9 @@ class Enemy(pygame.sprite.Sprite):
         pass
 
     def update(self, dt):
+        print(self.state, self.timeout)
+        if (self.state == "aggressive" and self.timeout > 0):
+            print('alert timeout')
         if self.target_dead:
             self.state = "idle"
             self.action = "idle"

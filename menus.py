@@ -11,6 +11,7 @@ from save import generate_game_data, save_game, load_game
 alagard48 = pygame.font.Font(
     "./assets/fonts/alagard.ttf", int(48 * (screen_height / 360))
 )
+alagard20 = pygame.font.Font("./assets/fonts/alagard.ttf", int(20 * (screen_height / 360)))
 alagard12 = pygame.font.Font(
     "./assets/fonts/alagard.ttf", int(12 * (screen_height / 360))
 )
@@ -19,34 +20,32 @@ highlight_color = (242, 219, 181)
 base_color = (218, 167, 119)
 white = (255, 255, 255)
 
-
 class MainMenu(pygame.sprite.Sprite):
     def __init__(self):
-        self.background_image = pygame.image.load(
-            "assets/menu/menu_bg1.png"
-        ).convert_alpha()
-        self.background_image = pygame.transform.scale(
-            self.background_image, (screen_width, screen_height)
-        )
+        # Load the background image and scale it to the screen width and height
+        self.background_image = pygame.image.load("assets/menu/menu_bg1.png").convert_alpha()
+        self.background_image = pygame.transform.scale(self.background_image, (screen_width, screen_height))
 
+        # Create a dark overlay (semi transparent black rect)
         self.overlay = pygame.Surface((screen_width, screen_height), pygame.SRCALPHA)
         self.overlay.fill((0, 0, 0, 128))
 
+        # Define the font for the title, and create the title and its highlight
         self.title_font = alagard48
+
         self.game_title = self.title_font.render("Ashen Crown", True, base_color)
         self.game_title_pos = (
             (screen_width - self.game_title.get_width()) / 2,
             65 * scale_multiplier,
         )
 
-        self.game_title_highlight = self.title_font.render(
-            "Ashen Crown", True, highlight_color
-        )
+        self.game_title_highlight = self.title_font.render("Ashen Crown", True, highlight_color)
         self.game_title_highlight_pos = (
             (screen_width - self.game_title.get_width()) / 2,
             68 * scale_multiplier,
         )
 
+        # Define the font for the options, and create the options items
         self.options_font = alagard12
 
         self.start_game_button = self.options_font.render("Start game", True, white)
@@ -88,9 +87,11 @@ class MainMenu(pygame.sprite.Sprite):
         )
 
     def draw(self, screen):
+        # Draw the screen with the overlay on top
         screen.blit(self.background_image, (0, 0))
         screen.blit(self.overlay, (0, 0))
 
+        # Draw the title highlight with the title on top, and then the options
         screen.blit(self.game_title_highlight, self.game_title_highlight_pos)
         screen.blit(self.game_title, self.game_title_pos)
 
@@ -108,10 +109,12 @@ class MainMenu(pygame.sprite.Sprite):
     ):
         camera_group = context.camera_group
         transitioner = context.transitioner
+
+        mouse_pos = pygame.mouse.get_pos()
+        
         if (
             event.type == pygame.MOUSEBUTTONDOWN and event.button == 1
         ):  # Left mouse button
-            mouse_pos = pygame.mouse.get_pos()
 
             if self.start_game_rect.collidepoint(mouse_pos):
 
@@ -150,6 +153,36 @@ class MainMenu(pygame.sprite.Sprite):
                 pygame.quit()
                 sys.exit()
 
+        # Hover events
+        if self.start_game_rect.collidepoint(mouse_pos):
+            self.start_game_button = self.options_font.render("< Start game >", True, white)
+        else:
+            self.start_game_button = self.options_font.render("Start game", True, white)
+
+        self.start_game_button_pos = (
+            (screen_width - self.start_game_button.get_width()) / 2,
+            174 * scale_multiplier,
+        )
+
+        if self.options_rect.collidepoint(mouse_pos):
+            self.options_button = self.options_font.render("< Options >", True, white)
+        else:
+            self.options_button = self.options_font.render("Options", True, white)
+
+        self.options_button_pos = (
+            (screen_width - self.options_button.get_width()) / 2,
+            204 * scale_multiplier,
+        )
+
+        if self.exit_game_rect.collidepoint(mouse_pos):
+            self.exit_game_button = self.options_font.render("< Exit >", True, white)
+        else:
+            self.exit_game_button = self.options_font.render("Exit", True, white)
+
+        self.exit_game_button_pos = (
+            (screen_width - self.exit_game_button.get_width()) / 2,
+            234 * scale_multiplier,
+        )
 
 class OptionsMenu(pygame.sprite.Sprite):
     def __init__(self):
@@ -157,8 +190,88 @@ class OptionsMenu(pygame.sprite.Sprite):
         self.background = pygame.Surface((screen_width, screen_height), pygame.SRCALPHA)
         self.background.fill((48, 37, 33, 255))
 
+        self.scroll_offset = 0  # Initialize scroll offset
+        self.scroll_speed = 50   # Speed of scrolling
+
+        # Title font
+        self.title_font = alagard20
+
+        # Options font
+        self.options_font = alagard12
+
+        # Options Title
+        self.options_title = self.title_font.render("Options", True, base_color)
+        self.options_title_pos = (
+            (screen_width - self.options_title.get_width()) / 2,
+            16 * scale_multiplier,
+        )
+
+        self.options_title_highlight = self.title_font.render("Options", True, highlight_color)
+        self.options_title_highlight_pos = (
+            (screen_width - self.options_title.get_width()) / 2,
+            17.25 * scale_multiplier,
+        )
+
+        # Volume settings (highlighted)
+        self.master_volume = self.options_font.render("Master Volume", True, highlight_color)
+        self.master_volume_pos = (
+            (screen_width - self.master_volume.get_width()) / 2,
+            62  * scale_multiplier,
+        )
+
+        self.music_volume = self.options_font.render("Music Volume", True, highlight_color)
+        self.music_volume_pos = (
+            (screen_width - self.music_volume.get_width()) / 2,
+            122 * scale_multiplier,
+        )
+
+        self.sound_volume = self.options_font.render("Sound Volume", True, highlight_color)
+        self.sound_volume_pos = (
+            (screen_width - self.sound_volume.get_width()) / 2,
+            182 * scale_multiplier,
+        )
+
+        # Controls Title
+        self.controls_title = self.title_font.render("Controls", True, base_color)
+        self.controls_title_pos = (
+            (screen_width - self.controls_title.get_width()) / 2,
+            240 * scale_multiplier,
+        )
+
+        self.controls_title_highlight = self.title_font.render("Controls", True, highlight_color)
+        self.controls_title_highlight_pos = (
+            (screen_width - self.controls_title.get_width()) / 2,
+            241.25 * scale_multiplier,
+        )
+
+        self.menu_height = 2 * screen_height  # Dynamically calculate menu height
+
     def draw(self, screen):
         screen.blit(self.background, (0, 0))
+
+        # List of all items to draw with their positions
+        items = [
+            (self.options_title_highlight, self.options_title_highlight_pos),
+            (self.options_title, self.options_title_pos),
+            (self.controls_title_highlight, self.controls_title_highlight_pos),
+            (self.controls_title, self.controls_title_pos),
+            (self.master_volume, self.master_volume_pos),
+            (self.music_volume, self.music_volume_pos),
+            (self.sound_volume, self.sound_volume_pos),
+        ]
+
+        # Draw each item, applying the scroll offset
+        for text_surface, pos in items:
+            adjusted_y = pos[1] - self.scroll_offset  # Apply scroll
+            if -text_surface.get_height() < adjusted_y < screen_height:  # Only draw if visible
+                screen.blit(text_surface, (pos[0], adjusted_y))
+
+    def handle_event(self, event):
+        if event.type == MOUSEBUTTONDOWN:
+            if event.button == 4:  # Scroll up
+                self.scroll_offset = max(self.scroll_offset - self.scroll_speed, 0)
+            if event.button == 5:  # Scroll down
+                self.scroll_offset = min(self.scroll_offset + self.scroll_speed, self.menu_height - screen_height)
 
 
 class PauseMenu(pygame.sprite.Sprite):

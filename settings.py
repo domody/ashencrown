@@ -22,7 +22,7 @@ base_speed = player_speed * 0.9
 
 # Volume
 # Set master volume
-master_vol = 0.5
+master_vol = 0
 
 # Decrease the sound volume as pygame mixer sound effects are inherently loud
 sound_vol_decreaser = 0.5

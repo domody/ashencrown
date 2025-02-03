@@ -27,8 +27,7 @@ from ui import HUD, DialogueBox, LocationDisplayer, BossHealthBar
 
 # Env
 from tile import Tile, Hitbox, Rune, Chest, Statue
-from env.collisionGroup import CollisionGroup
-from tree import Tree
+# from env.collisionGroup import CollisionGroup
 from env.wall import Wall
 
 # Enemies
@@ -100,15 +99,6 @@ while True:
     cutscene = game_context.cutscene
     event_list = pygame.event.get()
     for event in event_list:
-        if globals.game_context.game_state == "menu":
-            main_menu.handle_event(
-                event=event,
-                options_menu=options_menu,
-                player=player,
-                context=game_context,
-                load_map=load_map,
-            )
-
         if event.type == QUIT:
             pygame.quit()
             sys.exit()
@@ -132,7 +122,19 @@ while True:
         ):
             options_menu.visible = False
 
+        if options_menu.visible:
+            options_menu.handle_event(event=event)
+
     if globals.game_context.game_state == "menu":
+        for event in event_list:
+            main_menu.handle_event(
+                event=event,
+                options_menu=options_menu,
+                player=player,
+                context=game_context,
+                load_map=load_map,
+            )
+
         main_menu.draw(screen=screen)
 
     elif globals.game_context.game_state == "cutscene":
@@ -363,9 +365,9 @@ while True:
     screen.blit(debug, debug_pos)
 
     audio_handler.update()
+    
     # Flip display, tick fps
-    # print(camera_group.offset)
     pygame.display.flip()
-    fps_clock.tick(fps)
+    # fps_clock.tick(fps)
 
 # With every tree asset and their respective shadow in ashwood flats, fps dips to 90 fps from 144/150
