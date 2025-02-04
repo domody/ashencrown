@@ -62,7 +62,7 @@ class Player(pygame.sprite.Sprite):
         # Frame & Animation variables
         self.frame_counter = 0
         self.current_frame = 0
-        self.animation_incrementer = 36
+        self.animation_incrementer = 18
 
         self.idle_sprite_sheet = pygame.image.load(
             "assets/player/knight/Sprites/with_outline_adjusted/idle.png"
@@ -218,7 +218,7 @@ class Player(pygame.sprite.Sprite):
             ):
                 self.speed = player_speed * 1.5
                 self.action = "sprinting"
-                self.stamina -= 60 * dt
+                self.stamina -= 30 * dt
             else:
                 self.speed = player_speed
 

@@ -206,7 +206,7 @@ while True:
             if cutscene_counter <= 0:
                 cutscene_counter = 0
             elif cutscene_counter > 0:
-                cutscene_counter -= 2 * dt
+                cutscene_counter -= 1 * dt
                 camera_group.first_instance = True
 
             if load_cutscene_actions:

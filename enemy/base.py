@@ -71,8 +71,8 @@ class Enemy(pygame.sprite.Sprite):
         # Knockback variables
         self.knockback_active = False
         self.knockback_direction = pygame.math.Vector2(0, 0)
-        self.knockback_speed = 1000  # Adjust for desired knockback speed
-        self.knockback_duration = 0.1  # Knockback effect duration in seconds
+        self.knockback_speed = 500  # Adjust for desired knockback speed
+        self.knockback_duration = 0.2  # Knockback effect duration in seconds
         self.knockback_timer = 0  # Tracks the time remaining for knockback
 
         # Frame & Animation variables

@@ -16,8 +16,8 @@ class MaskedOrc(Boss):
             rect_width=rect_width,
             group=group,
             start_pos=start_pos,
-            animation_incrementer=16,
-            attack_range=56,
+            animation_incrementer=14,
+            attack_range=50,
             attack_damage=55,
         )
 

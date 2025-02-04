@@ -15,7 +15,7 @@ fps = 144
 # Player settings
 player_start_x = 160 * scale_multiplier
 player_start_y = 176 * scale_multiplier
-player_speed = 320 * scale_multiplier
+player_speed = 160 * scale_multiplier
 
 # Entity settings
 base_speed = player_speed * 0.9

@@ -16,8 +16,8 @@ class Goblin(Enemy):
             rect_width=rect_width,
             group=group,
             start_pos=start_pos,
-            animation_incrementer=24,
-            attack_range=44,
+            animation_incrementer=14,
+            attack_range=40,
             attack_damage=15,
         )
 
@@ -74,7 +74,7 @@ class Goblin(Enemy):
             self.pos[1] -= (45 * scale_multiplier) - self.height
             self.height = 45 * scale_multiplier
 
-            self.animation_incrementer = 24
+            # self.animation_incrementer = 14
 
             # if self.facing == "left":
             self.pos[0] -= ((30 * scale_multiplier) - self.rect_width) * 0.5
@@ -90,7 +90,7 @@ class Goblin(Enemy):
 
             self.rect_width = 30 * scale_multiplier
 
-            self.animation_incrementer = 24
+            # self.animation_incrementer = 14
 
         elif self.action == "attacking":
             self.pos[1] -= (53 * scale_multiplier) - self.height

@@ -38,7 +38,7 @@ class CameraGroup(pygame.sprite.Group):
         self.map_width = None
         self.map_height = None
 
-        self.camera_speed = 5
+        self.camera_speed = 2.5
 
         self.limit_edges = False
 

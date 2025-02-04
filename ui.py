@@ -495,8 +495,8 @@ class LocationDisplayer(pygame.sprite.Sprite):
 
         self.alpha = 0
         self.direction = "in"
-        self.fade_speed = 2
-        self.fade_timeout = 1
+        self.fade_speed = 4
+        self.fade_timeout = 2
 
         self.font = pygame.font.Font("./assets/fonts/alagard.ttf", 96)
         self.text_color = (255, 255, 255)
