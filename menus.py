@@ -270,16 +270,20 @@ class OptionsMenu(pygame.sprite.Sprite):
         self.sound_open_squares = []
 
         # Square sizes and start positions
-        square_size = 12 * scale_multiplier
-        start_x = (screen_width - (square_size * 9 + 8 * (2 * scale_multiplier))) / 2
+        self.square_size = 12 * scale_multiplier
+        start_x = (screen_width - (self.square_size * 9 + 8 * (2 * scale_multiplier))) / 2
         start_y = 84 * scale_multiplier
 
         # Generate the squares for the arrays
         for i in range(9):
-            x = start_x + i * (square_size + (2 * scale_multiplier))
-            self.master_open_squares.append(pygame.Rect(x, start_y, square_size, square_size))
-            self.music_open_squares.append(pygame.Rect(x, start_y + 60 * scale_multiplier, square_size, square_size))
-            self.sound_open_squares.append(pygame.Rect(x, start_y + 120 * scale_multiplier, square_size, square_size))
+            x = start_x + i * (self.square_size + (2 * scale_multiplier))
+            self.master_open_squares.append(pygame.Rect(x, start_y, self.square_size, self.square_size))
+            self.music_open_squares.append(pygame.Rect(x, start_y + 60 * scale_multiplier, self.square_size, self.square_size))
+            self.sound_open_squares.append(pygame.Rect(x, start_y + 120 * scale_multiplier, self.square_size, self.square_size))
+
+        # Decrease / Increase volume buttons
+        self.decrease_volume = self.options_font.render("<", True, highlight_color)
+        self.increase_volume = self.options_font.render(">", True, highlight_color)
 
     def draw(self, screen):
         # Draw background first
@@ -304,6 +308,13 @@ class OptionsMenu(pygame.sprite.Sprite):
 
         # Dynamic function to draw squares on screen with scroll offset applied
         def draw_squares(squares, volume):
+            # Decrease vol
+            screen.blit(self.decrease_volume, (squares[0].x - (4 * scale_multiplier) - self.decrease_volume.get_width() , squares[0].y - self.scroll_offset))
+            
+            # Increase vol
+            screen.blit(self.increase_volume, (squares[len(squares) - 1].x + (4 * scale_multiplier) + self.square_size , squares[len(squares) - 1].y - self.scroll_offset))
+            
+            # Slider squares
             for i, rect in enumerate(squares):
                 adjusted_y = rect.y - self.scroll_offset
                 if (i + 1) / len(squares) <= volume:
@@ -361,6 +372,15 @@ class OptionsMenu(pygame.sprite.Sprite):
                                 (i + 1) / 9,
                                 getattr(globals.game_context, volume_attr),
                             )
+
+                    decrease_rect = pygame.Rect(squares[0].x - (4 * scale_multiplier) - (2 * self.decrease_volume.get_width()), squares[0].y - self.scroll_offset, self.square_size, self.square_size)
+                    increase_rect = pygame.Rect(squares[len(squares) - 1].x + (4 * scale_multiplier) + self.square_size, squares[len(squares) - 1].y - self.scroll_offset, self.square_size, self.square_size)
+
+                    if increase_rect.collidepoint(mouse_pos) and getattr(globals.game_context, volume_attr) < 1:
+                        print(len(squares))
+                        setattr(globals.game_context, volume_attr, getattr(globals.game_context, volume_attr) + 1/len(squares))
+                    if decrease_rect.collidepoint(mouse_pos) and getattr(globals.game_context, volume_attr) > 0:
+                        setattr(globals.game_context, volume_attr, getattr(globals.game_context, volume_attr) - 1/len(squares))
 
                 update_volume(self.master_open_squares, "master_vol")
                 update_volume(self.music_open_squares, "music_vol_init")

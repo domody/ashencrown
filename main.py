@@ -126,6 +126,7 @@ while True:
             options_menu.handle_event(event=event)
 
     if globals.game_context.game_state == "menu":
+        pygame.mouse.set_visible(True)
         for event in event_list:
             main_menu.handle_event(
                 event=event,
@@ -354,6 +355,7 @@ while True:
                 save_game(game_data)
 
     elif globals.game_context.game_state == "paused":
+        pygame.mouse.set_visible(True)
         camera_group.custom_draw(player, dt, game_context)
         location_display.draw(screen, dt)
         pause_menu.draw(screen)
